@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27018:27017"
+
+  app:
+    image: docker-practice:latest
+    container_name: dotnetcoreapp
+    build:
+      context: .
+      dockerfile: dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - MONGODB_CONNECTION_STRING=mongodb://root:example@mongodb:27018
+    ports:
+      - "5000:8080"
+    depends_on:
+      - mongodb
+
+volumes:
+  mongo-data:
+    driver: local

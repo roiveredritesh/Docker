@@ -1,9 +1,14 @@
+using DockerPractice.Model;
+using DockerPractice.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.Configure<MongoDBService>(builder.Configuration);
+builder.Services.AddSingleton<MongoDBService>();
 
 var app = builder.Build();
 
@@ -37,6 +42,19 @@ app.MapGet("/weatherforecast", () =>
 .WithOpenApi();
 
 app.MapGet("/", () => "Hello from Docker!");
+
+
+app.MapGet("/people", async (MongoDBService db) =>
+{
+    var people = await db.GetAsync();
+    return Results.Ok(people);
+});
+
+app.MapPost("/people", async (Person newPerson, MongoDBService db) =>
+{
+    await db.CreateAsync(newPerson);
+    return Results.Ok(newPerson);
+});
 
 app.Run();
 
