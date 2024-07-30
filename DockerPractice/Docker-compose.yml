@@ -7,6 +7,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=example
+    command: "--wiredTigerCacheSizeGB 1"
     volumes:
       - mongo-data:/data/db
     ports:
@@ -20,7 +21,7 @@ services:
       dockerfile: dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - MONGODB_CONNECTION_STRING=mongodb://root:example@mongodb:27018
+      - MONGODB_CONNECTION_STRING=mongodb://root:example@mongodb:27017
     ports:
       - "5000:8080"
     depends_on:
