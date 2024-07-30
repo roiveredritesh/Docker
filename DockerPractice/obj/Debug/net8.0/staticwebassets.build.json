@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "GChSLu5AGLU2mmM4nLRTuXvCETe4/kknu36/UYRWisE=",
+  "Source": "DockerPractice",
+  "BasePath": "_content/DockerPractice",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
